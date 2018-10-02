@@ -1,5 +1,7 @@
 # Skeleton
 
+A bare bones web platform ready to be adapted.
+
 
 ## Setup
 
