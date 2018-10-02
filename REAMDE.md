@@ -21,3 +21,5 @@ https://expressjs.com/
 https://jasmine.github.io/pages/getting_started.html
 
 http://docs.sequelizejs.com/
+
+https://github.com/expressjs/session#readme

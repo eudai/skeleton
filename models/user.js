@@ -1,8 +1,9 @@
 var Sequelize = require('sequelize')
+var bcrypt = require('bcrypt')
 
 module.exports = function(sequelize){
 
-	return sequelize.define('user',{
+	var Model = sequelize.define('user',{
 
 		id: {
 			type: Sequelize.INTEGER,
@@ -17,6 +18,15 @@ module.exports = function(sequelize){
 			validate: {
 				isEmail: true,
 			}
+		},
+
+		password: {
+			type: Sequelize.STRING,
+			set: function(value){
+				var hash = bcrypt.hashSync(value,10)
+				this.setDataValue('password',hash)
+			},
+			get: function(){}
 		},
 
 		username: {
@@ -39,5 +49,12 @@ module.exports = function(sequelize){
 		timestamps: true,
 		paranoid: true
 	})
+
+	Model.prototype.validatePassword = function(password){
+		var hash = this.getDataValue('password')
+		return bcrypt.compareSync(password,hash)
+	}
+
+	return Model
 
 }
