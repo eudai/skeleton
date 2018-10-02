@@ -1,0 +1,9 @@
+{
+	"database": "skeleton",
+	"username": "skeleton",
+	"password": "skeleton",
+	"host": "localhost",
+	"dialect": "postgres",
+	"operatorsAliases": false,
+	"logging": false
+}

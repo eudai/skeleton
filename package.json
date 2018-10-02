@@ -1,18 +1,26 @@
 {
   "name": "skeleton",
   "version": "1.0.0",
-  "description": "web starter kit",
+  "description": "A bare bones web framework.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index",
+    "test": "node tests/index"
   },
-  "author": "",
+  "author": "Eudai",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eudai/skeleton.git"
+  },
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
+    "pg": "^7.4.3",
     "sequelize": "^4.39.0"
   },
   "devDependencies": {
-    "jasmine": "^3.2.0"
+    "jasmine": "^3.2.0",
+    "jasmine-ts-console-reporter": "^3.1.1"
   }
 }
