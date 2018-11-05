@@ -4,7 +4,7 @@ var Crud = require('../middlewares/crud.js')
 module.exports = function(sequelize){
 
 	var router = express.Router()
-	var crud = new Crud(sequelize.models.user)
+	var crud = new Crud(sequelize.models.item)
 
 	// create
 	router.post('/',crud.create,crud.json)

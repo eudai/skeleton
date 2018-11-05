@@ -1,4 +1,4 @@
-var User = function(model){
+var Crud = function(sequelize){
 
 	this.list = function(req,res,next){
 		model.findAndCountAll({
@@ -9,7 +9,7 @@ var User = function(model){
 			order: req.query.order,
 			paranoid: req.query.paranoid == 'false' ? false : true,
 		}).then(function(result){
-			req.payload.users = result
+			req.payload = result
 			next()
 		}).catch(function(error){
 			res.json(error)
@@ -44,7 +44,7 @@ var User = function(model){
 	}
 
 	this.destroy = function(req,res,next){
-		req.payload.user.destroy().then(function(result){
+		req.payload.destroy().then(function(result){
 			req.payload = result
 			next()
 		}).catch(function(error){
@@ -69,4 +69,4 @@ var User = function(model){
 
 }
 
-module.exports = User
+module.exports = Crud

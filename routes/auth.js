@@ -2,7 +2,9 @@ var express = require('express')
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy
 
-module.exports = function(model){
+module.exports = function(sequelize){
+
+	var model = sequelize.models.user
 
 	var router = express.Router()
 
@@ -42,19 +44,19 @@ module.exports = function(model){
 	router.use(passport.session())
 
 	// login
-	router.post('/auth/login',passport.authenticate('local'),function(req,res){
+	router.post('/login',passport.authenticate('local'),function(req,res){
+		res.json(req.user)
+	})
+
+	// status
+	router.get('/login',function(req,res){
 		res.json(req.user)
 	})
 
 	// logout
-	router.get('/auth/logout',function(req,res){
+	router.get('/logout',function(req,res){
 		req.logout()
 		res.status(200).send()
-	})
-
-	// status
-	router.get('/auth/status',function(req,res){
-		res.json(req.user)
 	})
 
 	// // activate

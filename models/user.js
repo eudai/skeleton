@@ -3,7 +3,7 @@ var bcrypt = require('bcrypt')
 
 module.exports = function(sequelize){
 
-	var Model = sequelize.define('user',{
+	var model = sequelize.define('user',{
 
 		id: {
 			type: Sequelize.INTEGER,
@@ -16,7 +16,7 @@ module.exports = function(sequelize){
 			unique: true,
 			allowNull: false,
 			validate: {
-				isEmail: true,
+				isEmail: true
 			}
 		},
 
@@ -33,15 +33,23 @@ module.exports = function(sequelize){
 			type: Sequelize.STRING
 		},
 
-		firstName: {
+		first: {
 			type: Sequelize.STRING
 		},
 
-		lastName: {
+		middle: {
 			type: Sequelize.STRING
 		},
 
-		birthDate: {
+		last: {
+			type: Sequelize.STRING
+		},
+
+		display: {
+			type: Sequelize.STRING
+		},
+
+		birthdate: {
 			type: Sequelize.DATE
 		}
 
@@ -50,11 +58,11 @@ module.exports = function(sequelize){
 		paranoid: true
 	})
 
-	Model.prototype.validatePassword = function(password){
+	model.prototype.validatePassword = function(password){
 		var hash = this.getDataValue('password')
 		return bcrypt.compareSync(password,hash)
 	}
 
-	return Model
+	return model
 
 }

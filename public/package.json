@@ -1,0 +1,18 @@
+{
+  "name": "skeleton-client",
+  "version": "1.0.0",
+  "main": "index.html",
+  "author": "Christopher Russ",
+  "license": "MIT",
+  "dependencies": {
+    "backbone": "^1.3.3",
+    "bootstrap": "^4.1.3",
+    "jquery": "^3.3.1",
+    "popper": "^1.0.1",
+    "underscore": "^1.9.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "description": ""
+}
