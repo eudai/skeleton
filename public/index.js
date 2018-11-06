@@ -1,7 +1,7 @@
-var App = require('./views/app.js')
+var ReactDOM = require('react-dom')
+var App = require('./components/app.js')
 
-var app = new App
+var rootElement = document.querySelector('#root')
 
-document.body.appendChild(app.render().el)
-
-window.app = app
+app = new App
+ReactDOM.render(app.render(),rootElement)

@@ -1,8 +1,16 @@
-var fs = require('fs')
 var browserify = require('browserify')
-var hbsfy = require('hbsfy').configure({
-	extensions: ['hbs']
+var reactify = require('reactify')
+var path = require('path')
+var fs = require('fs')
+
+var source = path.join(__dirname,'../public/index.js')
+var destination = path.join(__dirname,'../public/bundle.js')
+
+var b = browserify({
+	entries: [source],
+	transform: [reactify]
 })
-var b = browserify('./public/index.js')
-b.transform(hbsfy)
-b.bundle().pipe(fs.createWriteStream('./public/bundle.js'))
+
+b.bundle().on('error',function(error){
+	console.log(error.message)
+}).pipe(fs.createWriteStream(destination))

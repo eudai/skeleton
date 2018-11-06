@@ -1,4 +1,6 @@
-var User = function(model){
+var User = function(sequelize){
+
+	var model = sequelize.models.user
 
 	this.list = function(req,res,next){
 		model.findAndCountAll({
@@ -18,7 +20,8 @@ var User = function(model){
 
 	this.create = function(req,res,next){
 		model.create(req.body).then(function(result){
-			res.json(result)
+			req.payload.user = result
+			next()
 		}).catch(function(error){
 			res.json(error)
 		})
@@ -27,7 +30,7 @@ var User = function(model){
 	this.read = function(req,res,next){
 		model.findById(req.params.id).then(function(result){
 			if (!result) return res.status(404).send()
-			req.payload = result
+			req.payload.user = result
 			next()
 		}).catch(function(error){
 			res.json(error)
@@ -35,8 +38,8 @@ var User = function(model){
 	}
 
 	this.update = function(req,res,next){
-		req.payload.update(req.body).then(function(result){
-			req.payload = result
+		req.payload.user.update(req.body).then(function(result){
+			req.payload.user = result
 			next()
 		}).catch(function(error){
 			res.json(error)
@@ -45,7 +48,7 @@ var User = function(model){
 
 	this.destroy = function(req,res,next){
 		req.payload.user.destroy().then(function(result){
-			req.payload = result
+			req.payload.user = result
 			next()
 		}).catch(function(error){
 			res.json(error)
@@ -56,7 +59,7 @@ var User = function(model){
 		model.restore({ 
 			where: { id: req.params.id }
 		}).then(function(result){
-			req.payload = result
+			req.payload.user = result
 			next()
 		}).catch(function(error){
 			res.json(error)
@@ -64,7 +67,7 @@ var User = function(model){
 	}
 
 	this.json = function(req,res){
-		res.json(req.payload)
+		res.json(req.payload.user || req.payload.users)
 	}
 
 }

@@ -15,10 +15,10 @@ module.exports = function(sequelize){
 			}
 		}).then(function(user){
 			if (!user){
-				return done(null,false,{ message: 'Incorrect username.' })
+				return done(null,false,{ message: 'Username is not registered.' })
 			}
 			if (!user.validatePassword(password)){
-				return done(null,false,{ message: 'Incorrect password.' })
+				return done(null,false,{ message: 'Password is incorrect.' })
 			}
 			done(null,user)
 		}).catch(function(error){
@@ -50,13 +50,13 @@ module.exports = function(sequelize){
 
 	// status
 	router.get('/login',function(req,res){
-		res.json(req.user)
+		res.json(req.user || {})
 	})
 
 	// logout
-	router.get('/logout',function(req,res){
+	router.delete('/login',function(req,res){
 		req.logout()
-		res.status(200).send()
+		res.json({})
 	})
 
 	// // activate
