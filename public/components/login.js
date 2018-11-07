@@ -9,15 +9,27 @@ var FormText = ReactStrap.FormText
 
 class Login extends React.Component {
 
+	constructor(props){
+		super(props)
+		this.props = props
+		this.state = {
+			user: props.user
+		}
+		this.state.user.on('change',this.update,this)
+	}
+
+	update(user){
+		if (user.id){
+			location.href = '#home'
+		}
+	}
+
 	submit(event){
 		event.preventDefault()
 		var form = event.target
 		var username = form.querySelector('[name=username]').value
 		var password = form.querySelector('[name=password]').value
-		app.user.login({
-			username: username,
-			password: password
-		}).done(function(){
+		app.user.login(username,password).done(function(){
 			location.href = '#home'
 		})
 	}

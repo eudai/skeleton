@@ -19,9 +19,15 @@ class Toolbar extends React.Component {
 		super(props)
 		this.toggle = this.toggle.bind(this)
 		this.state = {
-			isOpen: false,
-			loggedIn: props.user.loggedIn
+			isOpen: false
 		}
+		props.user.on('change',this.update,this)
+	}
+
+	update(user){
+		this.setState({
+			user: user
+		})
 	}
 
 	toggle() {
@@ -49,19 +55,19 @@ class Toolbar extends React.Component {
 				<NavbarToggler onClick={this.toggle} />
 				<Collapse isOpen={this.state.isOpen} navbar>
 					<Nav className='ml-auto' navbar onClick={this.close.bind(this)}>
-						<NavItem hidden={this.props.user.loggedIn}>
+						<NavItem hidden={!!this.props.user.id}>
 							<NavLink href='#/register'>Register</NavLink>
 						</NavItem>
-						<NavItem hidden={this.props.user.loggedIn}>
+						<NavItem hidden={!!this.props.user.id}>
 							<NavLink href='#/login'>Log In</NavLink>
 						</NavItem>
-						<NavItem hidden={!this.props.user.loggedIn}>
+						<NavItem hidden={!this.props.user.id}>
 							<NavLink href='#/home'>Home</NavLink>
 						</NavItem>
-						<NavItem hidden={!this.props.user.loggedIn}>
+						<NavItem hidden={!this.props.user.id}>
 							<NavLink href='#/account'>Account</NavLink>
 						</NavItem>
-						<NavItem hidden={!this.props.user.loggedIn}>
+						<NavItem hidden={!this.props.user.id}>
 							<NavLink onClick={this.logout}>Log Out</NavLink>
 						</NavItem>
 					</Nav>
