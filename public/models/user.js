@@ -3,7 +3,7 @@ var $ = require('jquery')
 
 var User = Backbone.Model.extend({
 
-	url: '/login',
+	urlRoot: '/user',
 
 	initialize: function(){
 		this.check()
@@ -26,7 +26,7 @@ var User = Backbone.Model.extend({
 			url: '/login',
 			method: 'DELETE',
 			context: this
-		}).done(this.set)
+		}).done(this.clear)
 	},
 
 	check: function(){
@@ -35,6 +35,17 @@ var User = Backbone.Model.extend({
 			method: 'GET',
 			context: this
 		}).done(this.set)
+	},
+
+	defaults: {
+		email: "",
+		username: "",
+		password: "",
+		first: "",
+		middle: "",
+		last: "",
+		display: "",
+		birthdate: "",
 	}
 
 })

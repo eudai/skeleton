@@ -11,11 +11,7 @@ class Login extends React.Component {
 
 	constructor(props){
 		super(props)
-		this.props = props
-		this.state = {
-			user: props.user
-		}
-		this.state.user.on('change',this.update,this)
+		props.user.on('change',this.update,this)
 	}
 
 	update(user){
@@ -29,7 +25,7 @@ class Login extends React.Component {
 		var form = event.target
 		var username = form.querySelector('[name=username]').value
 		var password = form.querySelector('[name=password]').value
-		app.user.login(username,password).done(function(){
+		this.props.user.login(username,password).done(function(){
 			location.href = '#home'
 		})
 	}
@@ -37,7 +33,7 @@ class Login extends React.Component {
 	render(){
 		return (
 			<div className='container'>
-				<Form onSubmit={this.submit}>
+				<Form onSubmit={this.submit.bind(this)}>
 					<FormGroup>
 						<Label>Username</Label>
 						<Input name='username' />

@@ -13,11 +13,13 @@ module.exports = function(sequelize){
 
 		email: {
 			type: Sequelize.STRING,
-			unique: true,
+			unique: {
+				msg: 'Email is not unique.'
+			},
 			allowNull: false,
-			validate: {
-				isEmail: true
-			}
+			isEmail: {
+				msg: 'Email is not formatted correctly.'
+			}	
 		},
 
 		password: {
@@ -30,7 +32,10 @@ module.exports = function(sequelize){
 		},
 
 		username: {
-			type: Sequelize.STRING
+			type: Sequelize.STRING,
+			unique: {
+				msg: 'Username is taken.'
+			}
 		},
 
 		first: {

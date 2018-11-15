@@ -23,7 +23,7 @@ var User = function(sequelize){
 			req.payload.user = result
 			next()
 		}).catch(function(error){
-			res.json(error)
+			res.status(403).send(error.message)
 		})
 	}
 

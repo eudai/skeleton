@@ -11,23 +11,16 @@ var UncontrolledDropdown = reactstrap.UncontrolledDropdown
 var DropdownToggle = reactstrap.DropdownToggle
 var DropdownMenu = reactstrap.DropdownMenu
 var DropdownItem = reactstrap.DropdownItem
-var User = require('./user.js')
 
-class Toolbar extends React.Component {
+class Navigation extends React.Component {
 
 	constructor(props) {
 		super(props)
 		this.toggle = this.toggle.bind(this)
+		this.logout = this.logout.bind(this)
 		this.state = {
 			isOpen: false
 		}
-		props.user.on('change',this.update,this)
-	}
-
-	update(user){
-		this.setState({
-			user: user
-		})
 	}
 
 	toggle() {
@@ -43,12 +36,13 @@ class Toolbar extends React.Component {
 	}
 
 	logout(){
-		app.user.logout().done(function(){
+		this.props.user.logout().done(function(){
 			location.href = '#login'
 		})
 	}
 	
-	render() {
+	render(){
+		this.props.user.on()
 		return (
 			<Navbar className='mb-3' color='dark' dark expand='md'>
 				<NavbarBrand href='/'>Skeleton</NavbarBrand>
@@ -56,19 +50,19 @@ class Toolbar extends React.Component {
 				<Collapse isOpen={this.state.isOpen} navbar>
 					<Nav className='ml-auto' navbar onClick={this.close.bind(this)}>
 						<NavItem hidden={!!this.props.user.id}>
-							<NavLink href='#/register'>Register</NavLink>
+							<NavLink href='#register'>Register</NavLink>
 						</NavItem>
 						<NavItem hidden={!!this.props.user.id}>
-							<NavLink href='#/login'>Log In</NavLink>
+							<NavLink href='#login'>Log In</NavLink>
 						</NavItem>
 						<NavItem hidden={!this.props.user.id}>
-							<NavLink href='#/home'>Home</NavLink>
+							<NavLink href='/#home'>Home</NavLink>
 						</NavItem>
 						<NavItem hidden={!this.props.user.id}>
-							<NavLink href='#/account'>Account</NavLink>
+							<NavLink href='/#account'>Account</NavLink>
 						</NavItem>
 						<NavItem hidden={!this.props.user.id}>
-							<NavLink onClick={this.logout}>Log Out</NavLink>
+							<NavLink href='/#logout'>Log Out</NavLink>
 						</NavItem>
 					</Nav>
 				</Collapse>
@@ -79,4 +73,4 @@ class Toolbar extends React.Component {
 }
 
 
-module.exports = Toolbar
+module.exports = Navigation

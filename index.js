@@ -30,7 +30,7 @@ sequelize.sync({ force: false }).then(function(){
 app.use('/node_modules',express.static('node_modules'))
 app.use(express.static('public'))
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded())
+app.use(bodyParser.urlencoded({extended: true}))
 app.use(cookieParser())
 app.use(session({
 	secret: 'skeleton',

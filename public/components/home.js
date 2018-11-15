@@ -7,9 +7,11 @@ class Home extends React.Component {
 	}
 
 	render(){
+		var username = this.props.user.get('username')
+		var display = this.props.user.get('display')
 		return (
 			<div className='container'>
-				<h1>Welcome home, {this.props.user.get('username')}.</h1>
+				<h1>Welcome home, { display || username }.</h1>
 			</div>
 		)
 	}
